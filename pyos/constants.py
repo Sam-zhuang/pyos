@@ -1,13 +1,10 @@
 """ Commands of pyos CPU. """
-from types import FunctionType as _FunctionType
 from functools import wraps as _wraps
 
 
 class _Command:
     """ Decorator of CPU command. """
     def __init__(self, number):
-        if not isinstance(number, _FunctionType):
-            raise TypeError(f"func argument must be a function, not {type(number).__name__}")
         self.number = number
 
     def __call__(self, func):
@@ -22,20 +19,55 @@ class _Command:
         return wrapper
 
     def __repr__(self):
-        return f'command {self.func.__name__}'
+        return f'command {self.number}: {self.func.__name__}'
 
 
-@_Command(0x00)
+@_Command(0x01)
 def _ADD(a, b):
     """ Command of add. """
     return a + b
 
 
-@_Command(0x01)
+@_Command(0x02)
 def _SUB(a, b):
     """ Command of subtract. """
     return a - b
 
 
+@_Command(0x04)
+def _LSH(a, b):
+    """ Command of left shift. """
+    return a << b
+
+
+@_Command(0x08)
+def _RSH(a, b):
+    """ Command of right shift. """
+    return a >> b
+
+
+@_Command(0x10)
+def _AND(a, b):
+    """ Command of bitwise and. """
+    return a & b
+
+
+@_Command(0x20)
+def _OR(a, b):
+    """ Command of bitwise or. """
+    return a | b
+
+
+@_Command(0x40)
+def _NOT(a):
+    """ Command of bitwise not. """
+    return ~a
+
+
 ADD = _ADD
 SUB = _SUB
+LSH = _LSH
+RSH = _RSH
+AND = _AND
+OR = _OR
+NOT = _NOT
