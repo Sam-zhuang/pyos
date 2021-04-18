@@ -33,6 +33,7 @@ def _ADD(a, b):
 
 @_Command(0x01)
 def _SUB(a, b):
+    """ Command of subtract. """
     return a - b
 
 
