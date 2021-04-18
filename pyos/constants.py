@@ -64,6 +64,16 @@ def _NOT(a):
     return ~a
 
 
+@_Command(0x80)
+def _NAND(a, b):
+    return _NOT(_AND(a, b))
+
+
+@_Command(0x100)
+def _XOR(a, b):
+    return not (a or b)
+
+
 ADD = _ADD
 SUB = _SUB
 LSH = _LSH
@@ -71,3 +81,5 @@ RSH = _RSH
 AND = _AND
 OR = _OR
 NOT = _NOT
+NAND = _NAND
+XOR = _XOR
